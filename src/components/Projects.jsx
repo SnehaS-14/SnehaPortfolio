@@ -212,6 +212,30 @@ const Projects = () => {
       link: "rightupnextinnovations.com",
       tech: ["React", "Node.js", "Express.js", "MongoDB", "MySQL", "AWS", "REST APIs"],
       description: "Contributed to a full-stack software development company delivering custom web applications, enterprise solutions, and digital transformation services for diverse clients across multiple industries."
+    },
+    {
+      number: 12,
+      title: "Hillmount Holidays",
+      subtitle: "Tourism & Travel Portal",
+      link: "hillmountholidays.com",
+      tech: ["React", "Node.js", "MongoDB", "Payment Gateway", "Google Maps API"],
+      description: "Developed a comprehensive tourism and travel booking platform featuring destination showcases, package management, real-time booking system, secure payment processing, and customer review integration for seamless travel planning."
+    },
+    {
+      number: 13,
+      title: "Srivaari Events",
+      subtitle: "Events Management Platform",
+      link: "srivaarievents.in",
+      tech: ["React", "Node.js", "MongoDB", "REST APIs", "Payment Integration"],
+      description: "Built a full-featured events management platform enabling event planners to create, manage, and promote events with vendor management, ticket sales, attendee tracking, and integrated payment solutions for seamless event organization."
+    },
+    {
+      number: 14,
+      title: "Cook With Gayathri Raj",
+      subtitle: "Recipe & Cooking Platform",
+      link: "cookwithgayathriraj.com",
+      tech: ["React", "Node.js", "MongoDB", "Content Management", "AWS"],
+      description: "Created a dynamic recipe and cooking content platform featuring video tutorials, ingredient management, nutritional information, user ratings, and community features for food enthusiasts to discover and share culinary experiences."
     }
   ];
 
