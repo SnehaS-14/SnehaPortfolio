@@ -177,14 +177,6 @@ const Projects = () => {
     },
     {
       number: 7,
-      title: "GameFox Clothing",
-      subtitle: "E-commerce Platform",
-      link: "www.gamefoxclothing.com/shop/home",
-      tech: ["React", "Node.js", "MySQL", "Stripe", "AWS"],
-      description: "Built a full-featured e-commerce platform for clothing retail with product catalog management, shopping cart, secure payment processing, inventory tracking, and order management system."
-    },
-    {
-      number: 8,
       title: "MyFruitBowl",
       subtitle: "Food Delivery Service",
       link: "myfruitbowl.in",
@@ -192,21 +184,21 @@ const Projects = () => {
       description: "Developed a food delivery platform with real-time order tracking, dynamic pricing, vendor management, customer reviews, and integrated payment solutions for fresh produce and food items."
     },
     {
-      number: 9,
+      number: 8,
       title: "BatGulf",
       link: "batgulf.com",
       tech: ["React", "Node.js", "REST APIs", "MySQL", "AWS"],
       description: "Created a responsive business website with content management, service showcase, client portfolio, contact forms, and analytics integration for seamless client engagement and lead generation."
     },
     {
-      number: 10,
+      number: 9,
       title: "ThirdBorn",
       link: "thirdborn.in",
       tech: ["React", "Node.js", "MongoDB", "Payment Integration", "AWS"],
       description: "Built a feature-rich e-commerce and service platform with product/service listings, secure checkout, user authentication, order management, and customer support integration."
     },
     {
-      number: 11,
+      number: 10,
       title: "RightUpNext Innovations",
       subtitle: "Software Development Company",
       link: "rightupnextinnovations.com",
@@ -214,7 +206,7 @@ const Projects = () => {
       description: "Contributed to a full-stack software development company delivering custom web applications, enterprise solutions, and digital transformation services for diverse clients across multiple industries."
     },
     {
-      number: 12,
+      number: 11,
       title: "Hillmount Holidays",
       subtitle: "Tourism & Travel Portal",
       link: "hillmountholidays.com",
@@ -222,7 +214,7 @@ const Projects = () => {
       description: "Developed a comprehensive tourism and travel booking platform featuring destination showcases, package management, real-time booking system, secure payment processing, and customer review integration for seamless travel planning."
     },
     {
-      number: 13,
+      number: 12,
       title: "Srivaari Events",
       subtitle: "Events Management Platform",
       link: "srivaarievents.in",
@@ -230,7 +222,7 @@ const Projects = () => {
       description: "Built a full-featured events management platform enabling event planners to create, manage, and promote events with vendor management, ticket sales, attendee tracking, and integrated payment solutions for seamless event organization."
     },
     {
-      number: 14,
+      number: 13,
       title: "Cook With Gayathri Raj",
       subtitle: "Recipe & Cooking Platform",
       link: "cookwithgayathriraj.com",
