@@ -55,7 +55,7 @@ const ProjectCard = ({ project, onClick, isMobile }) => {
           {/* Number and Icon */}
           <div className="flex items-center justify-between mb-6">
             <span className="text-red-600 text-sm font-bold tracking-widest uppercase bg-red-50 px-3 py-1 rounded-full">
-              0{project.number}
+              {String(project.number).padStart(2, "0")}
             </span>
             <span className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               {isMobile ? '🔗' : '↗️'}
@@ -228,6 +228,22 @@ const Projects = () => {
       link: "cookwithgayathriraj.com",
       tech: ["React", "Node.js", "MongoDB", "Content Management", "AWS"],
       description: "Created a dynamic recipe and cooking content platform featuring video tutorials, ingredient management, nutritional information, user ratings, and community features for food enthusiasts to discover and share culinary experiences."
+    },
+    {
+      number: 14,
+      title: "AI Resume Analyzer",
+      subtitle: "AI-Powered Resume Scoring Platform",
+      link: "ai-resume-analyzer-1-5veb.onrender.com",
+      tech: ["React", "TypeScript", "FastAPI", "Python", "MongoDB", "Groq LLM"],
+      description: "Built an AI-powered resume analysis platform that scores uploaded PDF, DOCX, or TXT resumes for overall quality and ATS compatibility, highlights strengths, weaknesses, and action items, and rewrites resumes in one click, with analysis history stored in MongoDB."
+    },
+    {
+      number: 15,
+      title: "Document Q&A Chatbot",
+      subtitle: "AI Document Chat Assistant",
+      link: "q-a-ai-documentchat.onrender.com",
+      tech: ["React", "Node.js", "Express.js", "Tailwind CSS", "Claude AI"],
+      description: "Developed a full-stack chatbot that lets users upload PDF or Word documents and ask questions in natural language, returning context-aware answers powered by Anthropic Claude, with document parsing, suggestion chips, and a real-time chat interface."
     }
   ];
 
@@ -289,7 +305,7 @@ const Projects = () => {
             {/* Modal Content */}
             <div className="mb-6">
               <span className="text-red-600 text-sm font-bold tracking-widest uppercase bg-red-50 px-3 py-1 rounded-full">
-                Project 0{selectedProject.number}
+                Project {String(selectedProject.number).padStart(2, "0")}
               </span>
             </div>
 
