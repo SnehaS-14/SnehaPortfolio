@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Left Side: Logo/Name */}
         <div className="flex items-center">
           <a href="#home" className={`text-2xl font-black tracking-tight ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-            Sneha S<span className="text-red-500">.</span>
+            Sneha<span className="text-red-500">.</span>S
           </a>
         </div>
 

@@ -76,10 +76,11 @@ const ProjectCard = ({ project, onClick, isMobile }) => {
               onClick={(e) => {
                 if (!isMobile) e.stopPropagation();
               }}
-              className="text-white text-sm font-bold mb-6 hover:underline inline-flex items-center gap-2 bg-red-600 px-3 py-1 rounded hover:bg-red-700 transition-colors"
+              className="text-white text-sm font-bold mb-6 hover:underline inline-flex max-w-full items-center gap-2 bg-red-600 px-3 py-1 rounded hover:bg-red-700 transition-colors whitespace-nowrap"
+              title={project.link}
             >
-              {project.link}
-              <span className="text-lg">↗</span>
+              <span className="truncate">{project.link}</span>
+              <span className="text-lg shrink-0">↗</span>
             </a>
           )}
 
@@ -244,6 +245,14 @@ const Projects = () => {
       link: "q-a-ai-documentchat.onrender.com",
       tech: ["React", "Node.js", "Express.js", "Tailwind CSS", "Claude AI"],
       description: "Developed a full-stack chatbot that lets users upload PDF or Word documents and ask questions in natural language, returning context-aware answers powered by Anthropic Claude, with document parsing, suggestion chips, and a real-time chat interface."
+    },
+    {
+      number: 16,
+      title: "NexusCRM",
+      subtitle: "AI-Powered CRM Assistant",
+      link: "ai-nexus-crm.vercel.app",
+      tech: ["FastAPI", "Python", "SQLite", "JavaScript", "OpenRouter LLM"],
+      description: "Built an AI-powered CRM with a live Kanban deal board, searchable customer and deal directories, and a stale-deal risk radar, plus an AI assistant that answers questions grounded in CRM data and moves deals, adds notes, and reassigns leads through natural-language chat."
     }
   ];
 

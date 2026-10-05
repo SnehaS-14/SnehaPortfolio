@@ -32,7 +32,7 @@ const Preloader = () => {
           >
             {/* Background text (empty state) */}
             <div className="text-red-900/30">
-              Sneha S<span className="text-red-900/30">.</span>
+              Sneha<span className="text-red-900/30">.</span>S
             </div>
 
             {/* Foreground text (water fill state) */}
@@ -42,7 +42,7 @@ const Preloader = () => {
               animate={{ clipPath: 'inset(0% 0 0 0)' }}
               transition={{ duration: 1.6, ease: "easeInOut", delay: 0.2 }}
             >
-              Sneha S<span className="text-black">.</span>
+              Sneha<span className="text-black">.</span>S
             </motion.div>
           </motion.div>
 
