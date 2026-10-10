@@ -1,369 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
+import { Eyebrow, RevealLines, Rise, ArrowUpRight, Container } from './Editorial';
+import { projects } from '../data/projects';
 
-const ProjectCard = ({ project, onClick, isMobile }) => {
-  const [isHovered, setIsHovered] = useState(false);
+const pad = (n) => String(n).padStart(2, '0');
 
-  const techIcons = {
-    'React': '⚛️',
-    'React.js': '⚛️',
-    'Node.js': '🟢',
-    'Node': '🟢',
-    'MongoDB': '🍃',
-    'MySQL': '🗄️',
-    'Express.js': '⚡',
-    'Express': '⚡',
-    'AWS': '☁️',
-    'REST APIs': '🔗',
-    'JWT': '🔐',
-    'NFC': '📡',
-    'OCR': '📄',
-    'Stripe': '💳',
-    'Payment Gateway': '💰',
-    'Google Maps API': '📍'
-  };
-
-  const handleCardClick = () => {
-    if (isMobile && project.link) {
-      window.open(`https://${project.link}`, '_blank');
-    } else {
-      onClick();
-    }
-  };
+const ProjectRow = ({ project }) => {
+  const Row = project.link ? 'a' : 'div';
+  const linkProps = project.link
+    ? { href: `https://${project.link}`, target: '_blank', rel: 'noopener noreferrer' }
+    : {};
 
   return (
-    <motion.div
-      whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(255,42,42,0.2)' }}
-      onClick={handleCardClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`${isMobile ? 'cursor-pointer' : 'cursor-pointer'} group`}
-    >
-      <div
-        data-aos="fade-up"
-        className="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 md:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full overflow-hidden"
+    <li className="border-t border-ink transition-opacity duration-500 group-hover/list:opacity-30 hover:!opacity-100 focus-within:!opacity-100">
+      <Row
+        {...linkProps}
+        className="group grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-5 py-7 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,20rem)_auto] md:gap-x-8 md:py-9"
       >
-        {/* Background gradient on hover */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br from-red-50 to-transparent opacity-0 transition-opacity duration-300 ${
-            isHovered ? 'opacity-100' : ''
-          }`}
-        />
+        <span className="t-label col-span-2 text-muted transition-colors md:col-span-1 md:pt-[0.9em] duration-500 group-hover:text-accent">
+          {pad(project.number)}
+        </span>
 
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Number and Icon */}
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-red-600 text-sm font-bold tracking-widest uppercase bg-red-50 px-3 py-1 rounded-full">
-              {String(project.number).padStart(2, "0")}
-            </span>
-            <span className="text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {isMobile ? '🔗' : '↗️'}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors duration-300">
+        {/* Title + description */}
+        <div className="min-w-0">
+          <h3 className="text-[clamp(1.75rem,3.4vw,3.25rem)] leading-[0.95] font-semibold tracking-[-0.045em] transition-transform duration-700 ease-[var(--ease-expo)] group-hover:translate-x-2">
             {project.title}
           </h3>
-
-          {/* Link */}
-          {project.link && (
-            <a
-              href={`https://${project.link}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => {
-                if (!isMobile) e.stopPropagation();
-              }}
-              className="text-white text-sm font-bold mb-6 hover:underline inline-flex max-w-full items-center gap-2 bg-red-600 px-3 py-1 rounded hover:bg-red-700 transition-colors whitespace-nowrap"
-              title={project.link}
-            >
-              <span className="truncate">{project.link}</span>
-              <span className="text-lg shrink-0">↗</span>
-            </a>
+          {project.subtitle && (
+            <p className="t-label mt-4 text-muted">{project.subtitle}</p>
           )}
-
-          {/* Description */}
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6 flex-grow">
-            {project.description}
-          </p>
-
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((item, idx) => (
-              <motion.span
-                key={idx}
-                whileHover={{ scale: 1.1 }}
-                className="px-3 py-2 bg-[#ff2a2a] text-white text-xs font-semibold rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-1"
-              >
-                <span>{techIcons[item] || '⚙️'}</span>
-                {item}
-              </motion.span>
-            ))}
-          </div>
+          <p className="t-body mt-4 max-w-[60ch] text-justify hyphens-auto text-ink/70 md:text-left">{project.description}</p>
         </div>
 
-        {/* Accent line */}
-        <div
-          className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-yellow-400 to-transparent transition-all duration-300 ${
-            isHovered ? 'w-full' : 'w-0'
-          }`}
-        />
-      </div>
-    </motion.div>
+        {/* Arrow (mobile sits in the third column, desktop in the fourth) */}
+        <span className="grid size-10 place-items-center rounded-full border border-ink/20 transition-colors duration-500 group-hover:border-ink group-hover:bg-ink group-hover:text-paper md:order-last">
+          <ArrowUpRight />
+        </span>
+
+        {/* Stack + live link */}
+        <div className="col-span-2 col-start-1 flex min-w-0 flex-col gap-5 md:col-span-1 md:col-start-auto md:pt-2">
+          <ul className="flex flex-wrap gap-2">
+            {project.tech.map((item) => (
+              <li
+                key={item}
+                className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-[family-name:var(--font-geist-mono)] text-[0.72rem] tracking-[0.04em] text-ink/80"
+              >
+                <span className="size-1.5 rounded-full bg-accent" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          {project.link && (
+            <span className="flex min-w-0 items-center gap-2 text-sm font-medium" title={project.link}>
+              <span className="link-draw truncate pb-0.5">{project.link}</span>
+            </span>
+          )}
+        </div>
+      </Row>
+    </li>
   );
 };
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const projects = [
-    {
-      number: 1,
-      title: "Tapio.cards",
-      subtitle: "NFC Smart Business Card Solution",
-      link: "tapio.cards",
-      tech: ["React.js", "Node.js", "MongoDB", "REST APIs", "AWS", "NFC"],
-      description: "Developed a digital business-card platform enabling contactless sharing of professional and portfolio information via NFC; built customizable user profiles and REST APIs for seamless data management and personalized branding."
-    },
-    {
-      number: 2,
-      title: "Smart Product & Defect Scanner",
-      subtitle: "Portal",
-      link: "nkminfinity.com/client/demo",
-      tech: ["React", "Node.js", "MongoDB", "OCR", "JWT"],
-      description: "Built a product-lifecycle and defect-scanning portal applying OCR for invoice scanning, with secure file uploads, warranty tracking, and JWT-based authentication."
-    },
-    {
-      number: 3,
-      title: "Project Management Web App",
-      link: "rightupbussiness.store",
-      tech: ["React", "Node.js", "REST APIs", "MySQL"],
-      description: "Engineered a web-based project management application with task assignment, priority management, and deadline tracking; enabled role-based collaboration, dashboards, and secure authentication to streamline workflows and improve team productivity."
-    },
-    {
-      number: 4,
-      title: "Dreamstone CRM",
-      subtitle: "Customer Relationship Management Platform",
-      link: "www.rightuptechno.com/crm/login",
-      tech: ["React.js", "Node.js", "Express.js", "MySQL", "REST APIs", "JWT", "AWS"],
-      description: "Built a CRM platform for lead management, follow-ups, and sales-pipeline tracking, with secure REST APIs, role-based dashboards, and Google Sheets/Excel data import."
-    },
-    {
-      number: 5,
-      title: "Dreamstone Space",
-      subtitle: "Collaborative Workspace Platform",
-      link: "dreamstone.space",
-      tech: ["React", "Node.js", "MongoDB", "WebSocket", "AWS"],
-      description: "Created a collaborative workspace platform enabling real-time team communication, file sharing, project tracking, and video conferencing with intuitive UI and seamless integration."
-    },
-    {
-      number: 6,
-      title: "AppUp",
-      subtitle: "Mobile App Platform",
-      link: "appup.ai",
-      tech: ["React.js", "Node.js", "MongoDB", "REST APIs", "AWS"],
-      description: "Developed a comprehensive mobile application platform enabling developers to create, manage, and deploy mobile applications with real-time analytics, user management, and cloud infrastructure integration."
-    },
-    {
-      number: 7,
-      title: "MyFruitBowl",
-      subtitle: "Food Delivery Service",
-      link: "myfruitbowl.in",
-      tech: ["React", "Node.js", "MongoDB", "Google Maps API", "Payment Gateway"],
-      description: "Developed a food delivery platform with real-time order tracking, dynamic pricing, vendor management, customer reviews, and integrated payment solutions for fresh produce and food items."
-    },
-    {
-      number: 8,
-      title: "BatGulf",
-      link: "batgulf.com",
-      tech: ["React", "Node.js", "REST APIs", "MySQL", "AWS"],
-      description: "Created a responsive business website with content management, service showcase, client portfolio, contact forms, and analytics integration for seamless client engagement and lead generation."
-    },
-    {
-      number: 9,
-      title: "ThirdBorn",
-      link: "thirdborn.in",
-      tech: ["React", "Node.js", "MongoDB", "Payment Integration", "AWS"],
-      description: "Built a feature-rich e-commerce and service platform with product/service listings, secure checkout, user authentication, order management, and customer support integration."
-    },
-    {
-      number: 10,
-      title: "RightUpNext Innovations",
-      subtitle: "Software Development Company",
-      link: "rightupnextinnovations.com",
-      tech: ["React", "Node.js", "Express.js", "MongoDB", "MySQL", "AWS", "REST APIs"],
-      description: "Contributed to a full-stack software development company delivering custom web applications, enterprise solutions, and digital transformation services for diverse clients across multiple industries."
-    },
-    {
-      number: 11,
-      title: "Hillmount Holidays",
-      subtitle: "Tourism & Travel Portal",
-      link: "hillmountholidays.com",
-      tech: ["React", "Node.js", "MongoDB", "Payment Gateway", "Google Maps API"],
-      description: "Developed a comprehensive tourism and travel booking platform featuring destination showcases, package management, real-time booking system, secure payment processing, and customer review integration for seamless travel planning."
-    },
-    {
-      number: 12,
-      title: "Srivaari Events",
-      subtitle: "Events Management Platform",
-      link: "srivaarievents.in",
-      tech: ["React", "Node.js", "MongoDB", "REST APIs", "Payment Integration"],
-      description: "Built a full-featured events management platform enabling event planners to create, manage, and promote events with vendor management, ticket sales, attendee tracking, and integrated payment solutions for seamless event organization."
-    },
-    {
-      number: 13,
-      title: "Cook With Gayathri Raj",
-      subtitle: "Recipe & Cooking Platform",
-      link: "cookwithgayathriraj.com",
-      tech: ["React", "Node.js", "MongoDB", "Content Management", "AWS"],
-      description: "Created a dynamic recipe and cooking content platform featuring video tutorials, ingredient management, nutritional information, user ratings, and community features for food enthusiasts to discover and share culinary experiences."
-    },
-    {
-      number: 14,
-      title: "AI Resume Analyzer",
-      subtitle: "AI-Powered Resume Scoring Platform",
-      link: "ai-resume-analyzer-1-5veb.onrender.com",
-      tech: ["React", "TypeScript", "FastAPI", "Python", "MongoDB", "Groq LLM"],
-      description: "Built an AI-powered resume analysis platform that scores uploaded PDF, DOCX, or TXT resumes for overall quality and ATS compatibility, highlights strengths, weaknesses, and action items, and rewrites resumes in one click, with analysis history stored in MongoDB."
-    },
-    {
-      number: 15,
-      title: "Document Q&A Chatbot",
-      subtitle: "AI Document Chat Assistant",
-      link: "q-a-ai-documentchat.onrender.com",
-      tech: ["React", "Node.js", "Express.js", "Tailwind CSS", "Claude AI"],
-      description: "Developed a full-stack chatbot that lets users upload PDF or Word documents and ask questions in natural language, returning context-aware answers powered by Anthropic Claude, with document parsing, suggestion chips, and a real-time chat interface."
-    },
-    {
-      number: 16,
-      title: "NexusCRM",
-      subtitle: "AI-Powered CRM Assistant",
-      link: "ai-nexus-crm.vercel.app",
-      tech: ["FastAPI", "Python", "SQLite", "JavaScript", "OpenRouter LLM"],
-      description: "Built an AI-powered CRM with a live Kanban deal board, searchable customer and deal directories, and a stale-deal risk radar, plus an AI assistant that answers questions grounded in CRM data and moves deals, adds notes, and reassigns leads through natural-language chat."
-    }
-  ];
-
   return (
-    <section id="projects" className="bg-gradient-to-b from-white via-gray-50 to-white pt-24 pb-32 px-6 md:px-12 w-full font-sans">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div data-aos="fade-up" className="mb-20 md:mb-24">
-          <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-8 shadow-sm bg-white hover:shadow-md transition-all">
-            ✨ Portfolio
-          </div>
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 leading-[1.1] mb-6 tracking-tight">
-            Featured Projects
-          </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-3xl font-medium leading-relaxed">
-            Full-stack applications built with React, Node.js, and modern databases. Each project demonstrates end-to-end ownership from design to deployment, showcasing expertise in creating scalable, user-centric solutions.
-          </p>
-        </div>
+    <section id="projects" className="editorial grain bg-paper pt-32 pb-24 md:pt-44 md:pb-32">
+      <Container>
+        <Eyebrow>Work</Eyebrow>
+        <RevealLines
+          as="h2"
+          className="t-h1 mt-6 max-w-[14ch] md:mt-8"
+          label="Selected work."
+          lines={[<React.Fragment key="l">Selected <em>work.</em></React.Fragment>]}
+        />
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.number}
-              project={project}
-              isMobile={isMobile}
-              onClick={() => !isMobile && setSelectedProject(project)}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Project Detail Modal - Desktop Only */}
-      {selectedProject && !isMobile && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setSelectedProject(null)}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-        >
-          <motion.div
-            initial={{ scale: 0.9, y: 20 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.9, y: 20 }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 md:p-12 shadow-2xl"
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Modal Content */}
-            <div className="mb-6">
-              <span className="text-red-600 text-sm font-bold tracking-widest uppercase bg-red-50 px-3 py-1 rounded-full">
-                Project {String(selectedProject.number).padStart(2, "0")}
-              </span>
-            </div>
-
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-              {selectedProject.title}
-            </h2>
-
-            {selectedProject.subtitle && (
-              <p className="text-gray-500 text-lg mb-6">{selectedProject.subtitle}</p>
-            )}
-
-            <p className="text-gray-700 text-lg leading-relaxed mb-8">
-              {selectedProject.description}
+        <div className="mt-12 grid gap-8 md:mt-20 md:grid-cols-12">
+          <Rise className="order-2 md:order-1 md:col-span-4">
+            <p className="t-label text-muted">{pad(projects.length)} projects, each with a live link</p>
+          </Rise>
+          <Rise delay={0.1} className="order-1 md:order-2 md:col-span-6 md:col-start-7">
+            <p className="t-lead text-ink/85">
+              Full-stack applications built with React, Node.js, and modern databases — each one owned end to end, from design to deployment.
             </p>
+          </Rise>
+        </div>
 
-            {/* Tech Stack */}
-            <div className="mb-8">
-              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4">
-                Tech Stack
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {selectedProject.tech.map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="px-4 py-2 bg-[#ff2a2a] text-white font-semibold rounded-lg hover:bg-red-600 transition-all"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Visit Button */}
-            {selectedProject.link && (
-              <a
-                href={`https://${selectedProject.link}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-red-500 text-gray-900 font-bold rounded-full hover:bg-#ff2a2a transition-all transform hover:scale-105 shadow-lg"
-              >
-                Visit Project
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
+        <ul className="group/list mt-16 border-b border-ink md:mt-24">
+          {projects.map((project) => (
+            <ProjectRow key={project.number} project={project} />
+          ))}
+        </ul>
+      </Container>
     </section>
   );
 };

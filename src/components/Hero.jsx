@@ -97,7 +97,7 @@ const Hero = () => {
             data-aos-delay="200"
             className="text-white text-sm md:text-lg font-semibold mb-8 max-w-md drop-shadow-md"
           >
-            I build fast, scalable and modern web applications using React, Node.js and Tailwind CSS.
+            I build fast, scalable and modern web applications.
           </p>
 
           {/* Buttons */}

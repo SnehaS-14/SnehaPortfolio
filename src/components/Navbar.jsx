@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ solid = false }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [hasScrolled, setIsScrolled] = useState(false);
+  const isScrolled = solid || hasScrolled;
 
   // Handle scroll to make navbar more solid
   useEffect(() => {
@@ -20,6 +21,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', id: 'home' },
     { name: 'About', id: 'about' },
+    { name: 'Process', id: 'services' },
     { name: 'Projects', id: 'projects' },
     { name: 'Contact', id: 'contact' }
   ];
@@ -78,7 +80,7 @@ const Navbar = () => {
         <div className="md:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none p-2"
+            className={`${isScrolled && !isOpen ? 'text-gray-900' : 'text-white'} focus:outline-none p-2`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
